@@ -3,7 +3,7 @@ set nocompatible               " be iMproved
 
 scriptencoding utf-8           " utf-8 all the way
 set encoding=utf-8
-
+"
 set history=256                " Number of things to remember in history.
 set timeoutlen=250             " Time to wait after ESC (default causes an annoying delay)
 set clipboard+=unnamed         " Yanks go on clipboard instead.
@@ -119,13 +119,13 @@ if has('gui_running')
   " Fonts
   " :set guifont=* " to launch a GUI dialog
   if has('mac')
-  set guifont=Andale\ Mono:h13
+  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
   else
   set guifont=Terminus:h16
   end
 
   if has('mac')
-  set noantialias
+  " set noantialias
   " set fullscreen
   set fuoptions=maxvert,maxhorz ",background:#00AAaaaa
   endif
@@ -239,7 +239,8 @@ Plugin 'gmarik/vundle' " let Vundle manage Vundle
 Plugin 'gmarik/ingretu'
 
 if has("gui_running")
-  colorscheme ingretu
+  set background=dark
+  colorscheme zenburn
 endif
 
 " Programming
@@ -303,7 +304,7 @@ com! NORRB :au! BufWritePost <buffer>
 
 
 " Plugin 'SuperTab'
-Plugin 'bogado/file-line'
+" Plugin 'bogado/file-line'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'vim-scripts/lastpos.vim'
 
@@ -377,7 +378,15 @@ nnoremap <leader>eg :topleft :vsplit Gemfile<cr>
 
 " Plugin 'int3/vim-extradite'
 " Plugin 'Lokaltog/vim-powerline'
+
+Plugin 'kien/rainbow_parentheses.vim'
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 Plugin 'bling/vim-airline'
+let g:airline_powerline_fonts = 1
 let g:airline_section_a = airline#section#create(['%<', 'file', 'readonly'])
 let g:airline_section_b = '' " airline#section#create_left(['mode', 'paste', 'iminsert'])
 let g:airline_section_c = '' " airline#section#create(['hunks'])
@@ -391,6 +400,8 @@ Plugin 'gregsexton/gitv'
 Plugin 'rstacruz/sparkup.git', {'rtp': 'vim/'}
 let g:sparkupExecuteMapping = '<c-e>'
 let g:sparkupNextMapping = '<c-ee>'
+
+" Plugin 'mattn/emmet-vim'
 
 filetype plugin indent on      " Automatically detect file types.
 
