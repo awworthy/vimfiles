@@ -250,8 +250,7 @@ Plugin 'derekwyatt/vim-scala'
 Plugin 'tpope/vim-rails'
 
 " Snippets
-Plugin 'gmarik/snipmate.vim'
-Plugin 'gmarik/snipmate.snippets'
+Plugin 'msanders/snipmate.vim'
 nnoremap <leader>so :Explore ~/.vim/bundle/snipmate.snippets/snippets/<CR>
 
 
