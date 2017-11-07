@@ -230,10 +230,10 @@ au BufWinEnter *.txt if &ft == 'help' | wincmd H | nmap q :q<CR> | endif
 " Scripts and Plugins " {{{
 filetype off
 runtime macros/matchit.vim
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
-Plugin 'gmarik/vundle' " let Vundle manage Vundle
+Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle
 
 " Colorscheme
 Plugin 'gmarik/ingretu'
@@ -247,7 +247,7 @@ endif
 " Plugin 'Blackrush/vim-gocode'
 Plugin 'fatih/vim-go'
 Plugin 'derekwyatt/vim-scala'
-Plugin 'tpope/vim-rails'
+" Plugin 'tpope/vim-rails'
 
 " Snippets
 Plugin 'msanders/snipmate.vim'
@@ -386,13 +386,13 @@ au Syntax * RainbowParenthesesLoadBraces
 
 Plugin 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
-let g:airline_section_a = airline#section#create(['%<', 'file', 'readonly'])
-let g:airline_section_b = '' " airline#section#create_left(['mode', 'paste', 'iminsert'])
-let g:airline_section_c = '' " airline#section#create(['hunks'])
-let g:airline_section_gutter = airline#section#create(['%=%y%m%r[%{&ff}]'])
+"let g:airline_section_a = airline#section#create(['%<', 'file', 'readonly'])
+"let g:airline_section_b = '' " airline#section#create_left(['mode', 'paste', 'iminsert'])
+"let g:airline_section_c = '' " airline#section#create(['hunks'])
+"let g:airline_section_gutter = airline#section#create(['%=%y%m%r[%{&ff}]'])
 let g:airline_section_x = '' " airline#section#create_right(['filetype'])
 " let g:airline_section_y = '%y%m%r%=[%{&ff}]' "airline#section#create_right(['ffenc'])
-let g:airline_section_z = airline#section#create(['%(%l,%c%V%) %P'])
+"let g:airline_section_z = airline#section#create(['%(%l,%c%V%) %P'])
 let g:airline_section_warning = '' "airline#section#create(['whitespace'])
 
 Plugin 'gregsexton/gitv'
@@ -401,7 +401,7 @@ let g:sparkupExecuteMapping = '<c-e>'
 let g:sparkupNextMapping = '<c-ee>'
 
 " Plugin 'mattn/emmet-vim'
-
+call vundle#end()
 filetype plugin indent on      " Automatically detect file types.
 
 " " }}}
