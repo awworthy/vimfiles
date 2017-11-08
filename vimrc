@@ -45,9 +45,9 @@ set fo-=t                      " Do no auto-wrap text using textwidth (does not 
 set nowrap
 set textwidth=0                " Don't wrap lines by default
 
-set tabstop=2                  " tab size eql 2 spaces
-set softtabstop=2
-set shiftwidth=2               " default shift width for indents
+set tabstop=4                  " tab size eql 4 spaces
+set softtabstop=4
+set shiftwidth=4               " default shift width for indents
 set expandtab                  " replace tabs with ${tabstop} spaces
 set smarttab                   "
 
@@ -72,7 +72,7 @@ syntax on                      " enable syntax
 set mouse=a "enable mouse in GUI mode
 set mousehide                 " Hide mouse after chars typed
 
-set nonumber                  " line numbers Off
+set number                  " line numbers Off
 set showmatch                 " Show matching brackets.
 set matchtime=2               " Bracket blinking.
 
@@ -121,7 +121,8 @@ if has('gui_running')
   if has('mac')
   set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
   else
-  set guifont=Terminus:h16
+  let g:Powerline_symbols = 'fancy'
+  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:12
   end
 
   if has('mac')
@@ -238,10 +239,10 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle
 " Colorscheme
 Plugin 'gmarik/ingretu'
 
-if has("gui_running")
-  set background=dark
-  colorscheme zenburn
-endif
+"if has("gui_running")
+"  set background=dark
+"  colorscheme ingretu
+"endif
 
 " Programming
 " Plugin 'Blackrush/vim-gocode'
@@ -384,7 +385,8 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 let g:airline_powerline_fonts = 1
 "let g:airline_section_a = airline#section#create(['%<', 'file', 'readonly'])
 "let g:airline_section_b = '' " airline#section#create_left(['mode', 'paste', 'iminsert'])
@@ -400,8 +402,9 @@ Plugin 'rstacruz/sparkup.git', {'rtp': 'vim/'}
 let g:sparkupExecuteMapping = '<c-e>'
 let g:sparkupNextMapping = '<c-ee>'
 
+Plugin 'rust-lang/rust.vim'
 " Plugin 'mattn/emmet-vim'
 call vundle#end()
+colorscheme ingretu
 filetype plugin indent on      " Automatically detect file types.
-
 " " }}}
