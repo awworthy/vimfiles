@@ -270,6 +270,7 @@ Plug 'rizzatti/dash.vim'
 " Syntax highlight
 Plug 'gmarik/vim-markdown'
 Plug 'timcharper/textile.vim'
+Plug 'leafgarland/typescript-vim'
 
 " Git integration
 Plug 'tpope/vim-git'
