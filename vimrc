@@ -13,6 +13,7 @@ set tags=.git/tags;$HOME       " consider the repo tags first, then
                                " walk directory tree upto $HOME looking for tags
                                " note `;` sets the stop folder. :h file-search
 
+set termguicolors
 set modeline
 set modelines=5                " default numbers of lines to read for modeline instructions
 
@@ -388,6 +389,8 @@ nnoremap <leader>eg :topleft :vsplit Gemfile<cr>
 " Plugin 'Lokaltog/vim-powerline'
 
 Plug 'junegunn/seoul256.vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ayu-theme/ayu-vim'
 Plug 'kien/rainbow_parentheses.vim'
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
@@ -407,6 +410,7 @@ let g:airline_section_x = '' " airline#section#create_right(['filetype'])
 let g:airline_section_warning = '' "airline#section#create(['whitespace'])
 
 Plug 'gregsexton/gitv'
+Plug 'Rigellute/shades-of-purple.vim'
 
 function! s:goyo_enter()
   set noshowmode
@@ -430,7 +434,8 @@ Plug 'rust-lang/rust.vim'
 " Plugin 'mattn/emmet-vim'
 call plug#end()
 "call vundle#end()
-colorscheme seoul256
-let g:airline_theme = 'zenburn'
+colorscheme shades_of_purple 
+let g:shades_of_purple_airline = 1
+let g:airline_theme = 'shades_of_purple'
 filetype plugin indent on      " Automatically detect file types.
 " " }}}
