@@ -1,6 +1,7 @@
 " General "{{{
 set nocompatible               " be iMproved
 
+:/\%>80v./+                    " highlight characters beyond 80 as 'errors'
 scriptencoding utf-8           " utf-8 all the way
 set encoding=utf-8
 "
