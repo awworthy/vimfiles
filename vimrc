@@ -1,7 +1,7 @@
 " General "{{{
 set nocompatible               " be iMproved
 
-:/\%>80v./+                    " highlight characters beyond 80 as 'errors'
+" :/\%>80v./+                    " highlight characters beyond 80 as 'errors'
 scriptencoding utf-8           " utf-8 all the way
 set encoding=utf-8
 "
@@ -14,7 +14,7 @@ set tags=.git/tags;$HOME       " consider the repo tags first, then
                                " walk directory tree upto $HOME looking for tags
                                " note `;` sets the stop folder. :h file-search
 
-set termguicolors
+" set termguicolors
 set modeline
 set modelines=5                " default numbers of lines to read for modeline instructions
 
