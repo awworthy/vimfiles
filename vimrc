@@ -45,9 +45,9 @@ set fo-=t                      " Do no auto-wrap text using textwidth (does not 
 set nowrap
 set textwidth=0                " Don't wrap lines by default
 
-set tabstop=2                  " tab size eql 2 spaces
-set softtabstop=2
-set shiftwidth=2               " default shift width for indents
+set tabstop=4                  " tab size eql 2 spaces
+set softtabstop=4
+set shiftwidth=4               " default shift width for indents
 set expandtab                  " replace tabs with ${tabstop} spaces
 set smarttab                   "
 
@@ -111,6 +111,7 @@ set list                      " display unprintable characters f12 - switches
 set listchars=tab:\ ·,eol:¬
 set listchars+=trail:·
 set listchars+=extends:»,precedes:«
+set list!
 map <silent> <F12> :set invlist<CR>
 
 if has('gui_running')
@@ -380,6 +381,18 @@ nnoremap <leader>8  :CtrlPChange<CR>
 nnoremap <leader>9  :CtrlPChange<CR>
 nnoremap <leader>h  :CtrlPRTS<CR>
 
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+let g:airline_powerline_fonts = 1
+"let g:airline_section_a = airline#section#create(['%<', 'file', 'readonly'])
+"let g:airline_section_b = '' " airline#section#create_left(['mode', 'paste', 'iminsert'])
+"let g:airline_section_c = '' " airline#section#create(['hunks'])
+"let g:airline_section_gutter = airline#section#create(['%=%y%m%r[%{&ff}]'])
+let g:airline_section_x = '' " airline#section#create_right(['filetype'])
+" let g:airline_section_y = '%y%m%r%=[%{&ff}]' "airline#section#create_right(['ffenc'])
+"let g:airline_section_z = airline#section#create(['%(%l,%c%V%) %P'])
+let g:airline_section_warning = '' "airline#section#create(['whitespace'])
 
 Plugin 'rstacruz/sparkup.git', {'rtp': 'vim/'}
 let g:sparkupExecuteMapping = '<c-e>'
