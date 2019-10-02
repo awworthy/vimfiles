@@ -401,3 +401,5 @@ let g:sparkupNextMapping = '<c-ee>'
 filetype plugin indent on      " Automatically detect file types.
 
 " " }}}
+set shortmess+=O
+
