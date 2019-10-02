@@ -1,9 +1,10 @@
 " General "{{{
 set nocompatible               " be iMproved
 
+" :/\%>80v./+                    " highlight characters beyond 80 as 'errors'
 scriptencoding utf-8           " utf-8 all the way
 set encoding=utf-8
-
+"
 set history=256                " Number of things to remember in history.
 set timeoutlen=250             " Time to wait after ESC (default causes an annoying delay)
 set clipboard+=unnamed         " Yanks go on clipboard instead.
@@ -13,6 +14,7 @@ set tags=.git/tags;$HOME       " consider the repo tags first, then
                                " walk directory tree upto $HOME looking for tags
                                " note `;` sets the stop folder. :h file-search
 
+" set termguicolors
 set modeline
 set modelines=5                " default numbers of lines to read for modeline instructions
 
@@ -45,7 +47,8 @@ set fo-=t                      " Do no auto-wrap text using textwidth (does not 
 set nowrap
 set textwidth=0                " Don't wrap lines by default
 
-set tabstop=4                  " tab size eql 2 spaces
+
+set tabstop=4                  " tab size eql 4 spaces
 set softtabstop=4
 set shiftwidth=4               " default shift width for indents
 set expandtab                  " replace tabs with ${tabstop} spaces
@@ -120,15 +123,15 @@ if has('gui_running')
   " Fonts
   " :set guifont=* " to launch a GUI dialog
   if has('mac')
-    if has('macligatures')
-      set antialias macligatures guifont=Fira\ Code\ Light:h13 " -> <=
-    else
-      set noantialias guifont=Andale\ Mono:h14
-    end
-  set fuoptions=maxvert,maxhorz ",background:#00AAaaaa
-  else
-  set guifont=Terminus:h16
+  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12  else
+  let g:Powerline_symbols = 'fancy'
+  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:12
   end
+  if has('mac')
+  " set noantialias
+  " set fullscreen
+  set fuoptions=maxvert,maxhorz ",background:#00AAaaaa
+  endif
 endif
 " "}}}
 
@@ -230,71 +233,54 @@ au! BufWritePost      {*.snippet,*.snippets}                          call Reloa
 " au BufWinEnter {*.txt} if 'help' == &ft | wincmd H | nmap q :q<CR> | endif
 " " }}}
 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Scripts and Plugins " {{{
 filetype off
 runtime macros/matchit.vim
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set rtp+=~/.vim/bundle/Vundle.vim/
+"call vundle#begin()
 
-Plugin 'gmarik/vundle' " let Vundle manage Vundle
+call plug#begin('~/.vim/plugged')
+" Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle
 
 " Colorscheme
-Plugin 'gmarik/ingretu'
+"Plugin 'gmarik/ingretu'
 
-if has("gui_running")
-  colorscheme ingretu
-endif
+"if has("gui_running")
+"  set background=dark
+"  colorscheme ingretu
+"endif
 
 " Programming
-" Python
-Plugin 'davidhalter/jedi-vim'
-Plugin 'klen/python-mode'
-let g:pymode_lint = 0
-
-" Golang
-Plugin 'fatih/vim-go'
-" unlike gofmt also adds/removes imports
-let g:go_fmt_command = 'gofmt'
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_build_constraints = 1
-
-
-nnoremap <leader>gt :GoTest<CR>
-nnoremap <leader>gv :GoVet<CR>
-nnoremap <leader>gl :GoLint<CR>
-
-" goes to the definition under cursor in a new split
-" TODO: doesn't work
-nnoremap <C-W>gd <C-W>^zz
-
-
-" Scala
-Plugin 'derekwyatt/vim-scala'
-
-" Ruby/Rails
-Plugin 'tpope/vim-rails'
-
+" Plugin 'Blackrush/vim-gocode'
+" Plug 'fatih/vim-go'
+" Plug 'derekwyatt/vim-scala'
+" Plugin 'tpope/vim-rails'
 " Js
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
 " Snippets
-Plugin 'gmarik/snipmate.vim'
-Plugin 'gmarik/snipmate.snippets'
+Plug 'msanders/snipmate.vim'
 nnoremap <leader>so :Explore ~/.vim/bundle/snipmate.snippets/snippets/<CR>
 
-
+" Dash.app
+Plug 'rizzatti/funcoo.vim'
+Plug 'rizzatti/dash.vim'
 
 " Syntax highlight
-Plugin 'gmarik/vim-markdown'
-Plugin 'timcharper/textile.vim'
+Plug 'gmarik/vim-markdown'
+Plug 'timcharper/textile.vim'
+Plug 'leafgarland/typescript-vim'
 
 " Git integration
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-fugitive'
-Plugin 'junegunn/gv.vim'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-fugitive'
 
 nnoremap <leader>W :Gwrite<CR>
 nnoremap <leader>C :Gcommit -v<CR>
@@ -303,9 +289,9 @@ inoremap <leader>W <Esc><leader>W
 inoremap <leader>C <Esc><leader>C
 inoremap <leader>S <Esc><leader>S
 
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
 " bubble current line
 nmap <M-j> ]e
@@ -315,41 +301,41 @@ vmap <M-j> ]egv
 vmap <M-k> [egv
 
 " Utility
-Plugin 'AndrewRadev/splitjoin.vim'
+Plug 'AndrewRadev/splitjoin.vim'
 nmap sj :SplitjoinJoin<cr>
 nmap sk :SplitjoinSplit<cr>
 
-Plugin 'gmarik/github-search.vim'
+Plug 'gmarik/github-search.vim'
 
-Plugin 'gmarik/ide-popup.vim'
-Plugin 'gmarik/sudo-gui.vim'
+Plug 'gmarik/ide-popup.vim'
+Plug 'gmarik/sudo-gui.vim'
 
-Plugin 'sjl/gundo.vim'
+Plug 'sjl/gundo.vim'
 
-Plugin 'mkitt/browser-refresh.vim'
+Plug 'mkitt/browser-refresh.vim'
 com! ONRRB :au! BufWritePost <buffer> :RRB
 com! NORRB :au! BufWritePost <buffer>
 
 
 " Plugin 'SuperTab'
-Plugin 'bogado/file-line'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'vim-scripts/lastpos.vim'
+" Plugin 'bogado/file-line'
+Plug 'junegunn/vim-easy-align'
+" Plug 'vim-scripts/lastpos.vim'
 
-Plugin 'Lokaltog/vim-easymotion'
+Plug 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key='<LocalLeader>'
 
-Plugin 'ZoomWin'
-noremap <leader>o :ZoomWin<CR>
-vnoremap <leader>o <C-C>:ZoomWin<CR>
-inoremap <leader>o <C-O>:ZoomWin<CR>
-
-Plugin 'tomtom/tlib_vim'
-Plugin 'tomtom/tcomment_vim'
+" Plug 'ZoomWin'
+" noremap <leader>o :ZoomWin<CR>
+" vnoremap <leader>o <C-C>:ZoomWin<CR>
+" inoremap <leader>o <C-O>:ZoomWin<CR>
+"
+Plug 'tomtom/tlib_vim'
+Plug 'tomtom/tcomment_vim'
 nnoremap // :TComment<CR>
 vnoremap // :TComment<CR>
 
-Plugin 'gmarik/hlmatch.vim'
+Plug 'gmarik/hlmatch.vim'
 nnoremap # :<C-u>HlmCword<CR>
 nnoremap <leader># :<C-u>HlmGrepCword<CR>
 vnoremap # :<C-u>HlmVSel<CR>
@@ -360,30 +346,64 @@ nnoremap <leader>## :<C-u>HlmPartGrepCword<CR>
 vnoremap ## :<C-u>HlmPartVSel<CR>
 vnoremap <leader>## :<C-u>HlmPartGrepVSel<CR>
 
-Plugin 'ctrlpvim/ctrlp.vim'
+" FuzzyFinder
+"Plug 'L9'
+Plug 'junegunn/fzf'
+" FuF customisations "{{{
+let g:fuf_modesDisable = []
+nnoremap <leader>h :FufHelp<CR>
+nnoremap <leader>1  :FufTagWithCursorWord<CR>
+nnoremap <leader>11 :FufTag<CR>
+nnoremap <leader>2  :FufFileWithCurrentBufferDir<CR>
+nnoremap <leader>22 :FufFile<CR>
+nnoremap <leader>3  :FufBuffer<CR>
+nnoremap <leader>4  :FufDirWithCurrentBufferDir<CR>
+nnoremap <leader>44 :FufDir<CR>
+nnoremap <leader>5  :FufBufferTag<CR>
+nnoremap <leader>55 :FufBufferTagAll<CR>
+nnoremap <leader>6  :FufMruFile<CR>
+nnoremap <leader>7  :FufLine<CR>
+nnoremap <leader>8  :FufChangeList<CR>
+nnoremap <leader>9  :FufTaggedFile<CR>
+
+nnoremap <leader>p :FufDir ~/src/<CR>
+nnoremap <leader>ge :FufDir ~/.rvm/gems/<CR>
+
+nnoremap <leader>gn :vnew \| :FufFile ~/src/notes/<CR>
+
+" " }}}
+
+Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_map = '<leader>t'
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-let g:ctrlp_extensions = ['tag', 'buffertag', 'dir', 'rtscript',
-                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+let g:ctrlp_max_height = 30
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height = 20
+let g:ctrlp_match_window_reversed = 1
+let g:ctrlp_switch_buffer = 'e'
+nnoremap <leader>ev :CtrlP app/views<cr>
+nnoremap <leader>ec :CtrlP app/controllers<cr>
+nnoremap <leader>em :CtrlP app/models<cr>
+nnoremap <leader>el :CtrlP lib<cr>
+nnoremap <leader>ea :CtrlP app/assets<cr>
+nnoremap <leader>ep :CtrlP public<cr>
+nnoremap <leader>er :topleft :vsplit config/routes.rb<cr>
+nnoremap <leader>eg :topleft :vsplit Gemfile<cr>
 
-nnoremap <leader>0  :CtrlPClearAllCaches<CR>
-nnoremap <leader>`  :CtrlPUndo<CR>
-nnoremap <leader>1  :CtrlPTag expand("<cword>")<CR>
-nnoremap <leader>11 :CtrlPTag<CR>
-nnoremap <leader>2  :CtrlP expand("%:h:p")<CR>
-nnoremap <leader>22 :CtrlP<CR>
-nnoremap <leader>3  :CtrlPBuffer<CR>
-nnoremap <leader>4  :CtrlPDir expand("%:h:p")<CR>
-nnoremap <leader>44 :CtrlPDir<CR>
-nnoremap <leader>6  :CtrlPMRU<CR>
-nnoremap <leader>7  :CtrlPLine<CR>
-nnoremap <leader>8  :CtrlPChange<CR>
-nnoremap <leader>9  :CtrlPChange<CR>
-nnoremap <leader>h  :CtrlPRTS<CR>
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'int3/vim-extradite'
+" Plugin 'Lokaltog/vim-powerline'
 
+Plug 'junegunn/seoul256.vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'kien/rainbow_parentheses.vim'
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 let g:airline_powerline_fonts = 1
 "let g:airline_section_a = airline#section#create(['%<', 'file', 'readonly'])
 "let g:airline_section_b = '' " airline#section#create_left(['mode', 'paste', 'iminsert'])
@@ -394,12 +414,35 @@ let g:airline_section_x = '' " airline#section#create_right(['filetype'])
 "let g:airline_section_z = airline#section#create(['%(%l,%c%V%) %P'])
 let g:airline_section_warning = '' "airline#section#create(['whitespace'])
 
-Plugin 'rstacruz/sparkup.git', {'rtp': 'vim/'}
-let g:sparkupExecuteMapping = '<c-e>'
-let g:sparkupNextMapping = '<c-ee>'
+Plug 'gregsexton/gitv'
+Plug 'Rigellute/shades-of-purple.vim'
 
+function! s:goyo_enter()
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  set showmode
+  set showcmd
+  set scrolloff=5
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+Plug 'junegunn/goyo.vim'
+Plug 'rust-lang/rust.vim'
+" Plugin 'mattn/emmet-vim'
+call plug#end()
+"call vundle#end()
+"colorscheme shades_of_purple 
+let g:shades_of_purple_airline = 1
+let g:airline_theme = 'shades_of_purple'
 filetype plugin indent on      " Automatically detect file types.
-
 " " }}}
 set shortmess+=O
 
