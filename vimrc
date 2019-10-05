@@ -445,4 +445,5 @@ let g:airline_theme = 'shades_of_purple'
 filetype plugin indent on      " Automatically detect file types.
 " " }}}
 set shortmess+=O
+colorscheme iceberg
 
